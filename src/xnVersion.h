@@ -1,5 +1,5 @@
-#ifndef A2DVERSION_H
-#define A2DVERSION_H
+#ifndef XNVERSION_H
+#define XNVERSION_H
 
 #include <stdint.h>
 #include <string>

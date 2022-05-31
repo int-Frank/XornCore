@@ -1,4 +1,4 @@
-#include "a2dLineProperties.h"
+#include "xnLineProperties.h"
 
 namespace xn
 {

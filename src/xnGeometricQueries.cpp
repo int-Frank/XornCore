@@ -1,5 +1,5 @@
 
-#include "a2dGeometricQueries.h"
+#include "xnGeometricQueries.h"
 
 #include "DgQuerySegmentSegment.h"
 

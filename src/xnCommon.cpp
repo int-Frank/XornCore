@@ -5,8 +5,8 @@
 
 #include "sstream"
 
-#include "a2dCommon.h"
-#include "a2dVersion.h"
+#include "xnCommon.h"
+#include "xnVersion.h"
 
 namespace xn
 {

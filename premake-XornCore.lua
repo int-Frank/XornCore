@@ -1,4 +1,4 @@
-project "Core2DLib"
+project "XornCore"
   location ""
   kind "StaticLib"
   targetdir ("%{wks.location}/build/%{prj.name}-%{cfg.buildcfg}")
@@ -16,7 +16,7 @@ project "Core2DLib"
   includedirs
   {
     "src",
-    "3rdParty/DgLib/src"
+    "%{wks.location}/DgLib/src"
   }
   
   links

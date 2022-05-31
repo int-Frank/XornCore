@@ -1,5 +1,5 @@
-#ifndef A2DLOGGER_H
-#define A2DLOGGER_H
+#ifndef XNLOGGER_H
+#define XNLOGGER_H
 
 namespace xn
 {

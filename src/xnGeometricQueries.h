@@ -1,9 +1,9 @@
-#ifndef A2DGEOMETRICQUERIES_H
-#define A2DGEOMETRICQUERIES_H
+#ifndef XNGEOMETRICQUERIES_H
+#define XNGEOMETRICQUERIES_H
 
 #include "DgError.h"
 #include "DgQuery.h"
-#include "a2dGeometry.h"
+#include "xnGeometry.h"
 
 namespace xn
 {

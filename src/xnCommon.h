@@ -1,5 +1,5 @@
-#ifndef A2DCOMMON_H
-#define A2DCOMMON_H
+#ifndef XNCOMMON_H
+#define XNCOMMON_H
 
 #include <stdint.h>
 

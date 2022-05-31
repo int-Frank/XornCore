@@ -1,5 +1,5 @@
-#ifndef A2DGEOMETRY_H
-#define A2DGEOMETRY_H
+#ifndef XNGEOMETRY_H
+#define XNGEOMETRY_H
 
 #include <vector>
 #include <string>

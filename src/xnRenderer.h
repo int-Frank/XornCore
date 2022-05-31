@@ -1,9 +1,9 @@
-#ifndef A2DRENDERER_H
-#define A2DRENDERER_H
+#ifndef XNRENDERER_H
+#define XNRENDERER_H
 
 #include "DgVector.h"
 #include "DgSegment.h"
-#include "a2dLineProperties.h"
+#include "xnLineProperties.h"
 
 namespace xn
 {

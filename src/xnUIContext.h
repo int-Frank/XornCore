@@ -1,5 +1,5 @@
-#ifndef A2DUICONTEXT_H
-#define A2DUICONTEXT_H
+#ifndef XNUICONTEXT_H
+#define XNUICONTEXT_H
 
 #include <stdint.h>
 

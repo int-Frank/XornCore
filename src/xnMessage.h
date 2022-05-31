@@ -1,7 +1,5 @@
-//@group Messages
-
-#ifndef MESSAGE_H
-#define MESSAGE_H
+#ifndef XNMESSAGE_H
+#define XNMESSAGE_H
 
 #include <stdint.h>
 #include <string>

@@ -1,9 +1,9 @@
-#ifndef A2DCOLOUR_H
-#define A2DCOLOUR_H
+#ifndef XNCOLOUR_H
+#define XNCOLOUR_H
 
 #include <stdint.h>
 
-#include "a2dLineProperties.h"
+#include "xnLineProperties.h"
 
 namespace xn
 {

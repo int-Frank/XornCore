@@ -1,6 +1,6 @@
 
-#include "a2dModule.h"
-#include "a2dLogger.h"
+#include "xnModule.h"
+#include "xnLogger.h"
 
 namespace xn
 {

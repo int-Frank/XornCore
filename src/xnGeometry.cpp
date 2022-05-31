@@ -4,11 +4,11 @@
 #include <filesystem>
 #include <fstream>
 
-#include "a2dRenderer.h"
-#include "a2dGeometry.h"
-#include "a2dCommon.h"
-#include "a2dLogger.h"
-#include "a2dRenderer.h"
+#include "xnRenderer.h"
+#include "xnGeometry.h"
+#include "xnCommon.h"
+#include "xnLogger.h"
+#include "xnRenderer.h"
 
 namespace xn
 {
@@ -82,13 +82,13 @@ namespace xn
       pRenderer->DrawLine(*it, opts);
   }
 
-  void Geometry::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
+  void PolygonGroup::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
   {
     for (auto const &polygon : polygons)
       polygon.Render(pRenderer, T_World_View, opts, transform);
   }
 
-  Dg::ErrorCode Geometry::GetAABB(aabb *pOut) const
+  Dg::ErrorCode PolygonGroup::GetAABB(aabb *pOut) const
   {
     aabb *pTemp = nullptr;
     Dg::ErrorCode result = Dg::ErrorCode::NotFound;
@@ -139,7 +139,7 @@ namespace xn
     return true;
   }
 
-  bool Geometry::ReadFromOBJ(std::string const &file)
+  bool PolygonGroup::ReadFromOBJ(std::string const &file)
   {
     std::vector<vec2> points;
     if (!ReadPointsFromOBJ(file, points))
@@ -207,7 +207,7 @@ namespace xn
     return -1;
   }
 
-  Geometry const *GeometryCollection::Find(std::string const &name) const
+  PolygonGroup const *GeometryCollection::Find(std::string const &name) const
   {
     auto it = m_list.find(name);
     if (it != m_list.end())
@@ -215,7 +215,7 @@ namespace xn
     return nullptr;
   }
 
-  Geometry *GeometryCollection::Find(std::string const &name)
+  PolygonGroup *GeometryCollection::Find(std::string const &name)
   {
     auto it = m_list.find(name);
     if (it != m_list.end())
@@ -229,7 +229,7 @@ namespace xn
     return it != m_list.end();
   }
 
-  void GeometryCollection::PushBack(std::string const &name, Geometry const &geom)
+  void GeometryCollection::PushBack(std::string const &name, PolygonGroup const &geom)
   {
     m_list[name] = geom;
   }
@@ -247,7 +247,7 @@ namespace xn
     return true;
   }
 
-  Geometry const *GeometryCollection::GetFromIndex(int index) const
+  PolygonGroup const *GeometryCollection::GetFromIndex(int index) const
   {
     if (index < 0 || index >= m_list.size())
       return nullptr;
@@ -259,7 +259,7 @@ namespace xn
     return &(it->second);
   }
 
-  Geometry *GeometryCollection::GetFromIndex(int index)
+  PolygonGroup *GeometryCollection::GetFromIndex(int index)
   {
     if (index < 0 || index >= m_list.size())
       return nullptr;
@@ -271,7 +271,7 @@ namespace xn
     return &(it->second);
   }
 
-  std::map<std::string, Geometry> const *GeometryCollection::GetList() const
+  std::map<std::string, PolygonGroup> const *GeometryCollection::GetList() const
   {
       return &m_list;
   }
