@@ -55,7 +55,7 @@ namespace xn
     Polygon GetTransformed(mat33 const &) const;
   };
 
-  class Geometry
+  class PolygonGroup
   {
   public:
 
@@ -74,20 +74,20 @@ namespace xn
     std::vector<std::string> GetModelNames() const;
     std::vector<char> ToImGuiNameString() const;
     int GetIndex(std::string const &) const;
-    Geometry const *Find(std::string const &) const;
-    Geometry *Find(std::string const &);
+    PolygonGroup const *Find(std::string const &) const;
+    PolygonGroup *Find(std::string const &);
     bool Exists(std::string const &) const;
-    void PushBack(std::string const &, Geometry const &);
+    void PushBack(std::string const &, PolygonGroup const &);
 
     bool GetNameFromIndex(int index, std::string &);
-    Geometry const *GetFromIndex(int index) const;
-    Geometry *GetFromIndex(int index);
+    PolygonGroup const *GetFromIndex(int index) const;
+    PolygonGroup *GetFromIndex(int index);
 
-    std::map<std::string, Geometry> const * GetList() const;
+    std::map<std::string, PolygonGroup> const * GetList() const;
 
   private:
 
-    std::map<std::string, Geometry> m_list;
+    std::map<std::string, PolygonGroup> m_list;
   };
 }
 
