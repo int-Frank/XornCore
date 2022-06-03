@@ -13,8 +13,8 @@
   class Message_ ## t : public Message {\
   public:\
     static size_t Size();\
-    static uint32_t GetStaticID();\
-    uint32_t GetID() const override;\
+    static MessageType GetStaticType();\
+    MessageType GetType() const override;\
     std::string ToString() const override;\
     static Message_ ## t * Create();
 
@@ -72,6 +72,10 @@ namespace xn
   };
 
   MESSAGE_HEADER(WindowLostFocus)
+    uint32_t windowID;
+  };
+
+  MESSAGE_HEADER(WindowClosed)
     uint32_t windowID;
   };
 }

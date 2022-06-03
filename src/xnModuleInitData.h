@@ -14,7 +14,6 @@ namespace xn
   {
     uint32_t ID;
     std::string name;
-    bool *pShow;
     Logger *pLogger;
     MessageBus *pMsgBus;
     IMemoryManager *pMemMngr;

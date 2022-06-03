@@ -25,6 +25,7 @@ namespace xn
     // Window
     WindowGainedFocus,
     WindowLostFocus,
+    WindowClosed,
 
     // End
     CLIENT_START = 0xFFFF // Client ID's can start here
@@ -46,7 +47,7 @@ namespace xn
     bool QueryFlag(Flag flag) const;
     void SetFlag(Flag flag, bool);
 
-    virtual uint32_t GetID() const = 0;
+    virtual MessageType GetType() const = 0;
     virtual std::string ToString() const = 0;
 
   protected:

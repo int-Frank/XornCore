@@ -11,7 +11,6 @@ namespace xn
     , m_windowFlags(0)
     , m_name()
     , m_ID(0)
-    , m_pShow(nullptr)
     , m_pLogger(nullptr)
     , m_pMessageBus(nullptr)
     , m_pMemMngr(nullptr)
@@ -20,7 +19,6 @@ namespace xn
     {
       m_name = pData->name;
       m_ID = pData->ID;
-      m_pShow = pData->pShow;
       m_pLogger = pData->pLogger;
       m_pMessageBus = pData->pMsgBus;
       m_pMemMngr = pData->pMemMngr;
@@ -29,7 +27,7 @@ namespace xn
 
   Module::~Module()
   {
-    *m_pShow = false;
+
   }
 
   void Module::SetLogger(Logger *pLogger)
@@ -40,7 +38,8 @@ namespace xn
   void Module::DoFrame(UIContext *pContext)
   {
     NewFrame();
-    bool hasFocus = pContext->BeginWindow(m_name.c_str(), m_pShow, m_windowFlags);
+    bool show = true;
+    bool hasFocus = pContext->BeginWindow(m_name.c_str(), &show, m_windowFlags);
     if (hasFocus != m_hasFocus && m_pMessageBus != nullptr)
     {
       if (hasFocus)
@@ -61,6 +60,19 @@ namespace xn
     _DoFrame(pContext);
 
     pContext->EndWindow();
+
+    if (!show)
+      Close();
+  }
+
+  void Module::Close()
+  {
+    if (m_pMessageBus != nullptr)
+    {
+      Message_WindowClosed *pMsg = m_pMessageBus->NewMessage<xn::Message_WindowClosed>();
+      pMsg->windowID = m_ID;
+      m_pMessageBus->PostMessage(pMsg);
+    }
   }
 
   void Module::NewFrame()

@@ -35,9 +35,9 @@ namespace xn
   // Engine Messages
   //-------------------------------------------------------------------
 
-#define MESSAGE_DEFINITION(t) uint32_t Message_ ## t::GetStaticID() {return (uint32_t)MessageType::t;}\
+#define MESSAGE_DEFINITION(t) MessageType Message_ ## t::GetStaticType() {return MessageType::t;}\
 size_t Message_ ## t::Size() {return sizeof(Message_ ## t);}\
-uint32_t Message_ ## t::GetID() const {return GetStaticID();}\
+MessageType Message_ ## t::GetType() const {return GetStaticType();}\
 Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
 
 #define MESSAGE_DEFAULT_STRING(t) std::string Message_ ## t::ToString() const { return std::string(#t); }
@@ -50,6 +50,7 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   MESSAGE_DEFINITION(AddPolygon);
   MESSAGE_DEFINITION(WindowGainedFocus);
   MESSAGE_DEFINITION(WindowLostFocus);
+  MESSAGE_DEFINITION(WindowClosed);
   
   MESSAGE_DEFAULT_STRING(InsertVertex);
   MESSAGE_DEFAULT_STRING(RemoveVertex);
@@ -69,6 +70,13 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   {
     std::stringstream ss;
     ss << "WindowLostFocus: ID: " << windowID;
+    return ss.str();
+  }
+
+  std::string Message_WindowClosed::ToString() const
+  {
+    std::stringstream ss;
+    ss << "WindowClosed: ID: " << windowID;
     return ss.str();
   }
 }

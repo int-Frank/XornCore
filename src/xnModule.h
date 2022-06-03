@@ -37,11 +37,12 @@ namespace xn
 
   protected:
 
+    void Close();
+
     virtual void _DoFrame(UIContext *) = 0;
     virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
 
     uint32_t m_windowFlags;
-    bool *m_pShow;
     Logger *m_pLogger;
     IMemoryManager *m_pMemMngr;
     MessageBus *m_pMessageBus;
