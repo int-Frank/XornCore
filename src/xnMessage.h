@@ -36,7 +36,6 @@ namespace xn
 
     virtual uint32_t GetID() const = 0;
     virtual std::string ToString() const = 0;
-    virtual Message *Clone() const = 0;
 
   protected:
     uint32_t m_flags;

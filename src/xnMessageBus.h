@@ -23,8 +23,7 @@ namespace xn
     Message *NewMessage()
     {
       static_assert(std::is_base_of(T, Message), "Can only create messages!");
-      T msg;
-      return msg.Clone();
+      return T::Create();
     }
 
   private:

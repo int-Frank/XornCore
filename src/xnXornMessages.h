@@ -16,19 +16,11 @@
     static uint32_t GetStaticID();\
     uint32_t GetID() const override;\
     std::string ToString() const override;\
-    Message * Clone() const override;
+    static Message * Create();
 
 
 namespace xn
 {
-  class MessageBus;
-
-  //-------------------------------------------------------------------
-  // Helper functions
-  //-------------------------------------------------------------------
-
-  void SendMessage_AddPolygon(MessageBus *, Polygon const &);
-
   //-------------------------------------------------------------------
   // Messages
   //-------------------------------------------------------------------

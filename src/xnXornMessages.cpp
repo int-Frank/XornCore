@@ -35,7 +35,7 @@ namespace xn
 size_t Message_ ## t::Size() {return sizeof(Message_ ## t);}\
 uint32_t Message_ ## t::GetID() const {return GetStaticID();}\
 std::string Message_ ## t::ToString() const {return std::string(#t);}\
-Message * Message_ ## t::Clone() const {return new Message_ ## t(*this);}
+Message * Message_ ## t::Create() {return new Message_ ## t();}
 
   MESSAGE_DEFINITION(InsertVertex)
   MESSAGE_DEFINITION(RemoveVertex)
