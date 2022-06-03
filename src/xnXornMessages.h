@@ -16,7 +16,7 @@
     static uint32_t GetStaticID();\
     uint32_t GetID() const override;\
     std::string ToString() const override;\
-    static Message * Create();
+    static Message_ ## t * Create();
 
 
 namespace xn
@@ -27,8 +27,8 @@ namespace xn
 
   MESSAGE_HEADER(InsertVertex)
     uint32_t polygonID;
-    uint32_t vertexIndex;
-    vec2 newPosition;
+    uint32_t vertexBefore;
+    vec2 position;
   };
 
   MESSAGE_HEADER(RemoveVertex)
@@ -53,6 +53,26 @@ namespace xn
 
   MESSAGE_HEADER(AddPolygon)
     std::vector<vec2> points;
+  };
+
+  MESSAGE_HEADER(MouseDown)
+    vec2 position;
+  };
+
+  MESSAGE_HEADER(MouseUp)
+    vec2 position;
+  };
+
+  MESSAGE_HEADER(MouseMove)
+    vec2 position;
+  };
+
+  MESSAGE_HEADER(WindowGainedFocus)
+    uint32_t windowID;
+  };
+
+  MESSAGE_HEADER(WindowLostFocus)
+    uint32_t windowID;
   };
 }
 

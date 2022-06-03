@@ -5,7 +5,6 @@
 
 namespace xn
 {
-  // Client memory manager for the MessageBus should be thread safe
   class IMemoryManager
   {
   public:

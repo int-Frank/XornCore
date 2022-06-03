@@ -9,12 +9,24 @@ namespace xn
 {
   enum class MessageType
   {
+    // Editing geometry
     InsertVertex,
     RemoveVertex,
     MoveVertex,
     TransformPolygon,
     RemovePolygon,
     AddPolygon,
+
+    // IO
+    MouseDown,
+    MouseUp,
+    MouseMove,
+
+    // Window
+    WindowGainedFocus,
+    WindowLostFocus,
+
+    // End
     CLIENT_START = 0xFFFF // Client ID's can start here
   };
 

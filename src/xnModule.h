@@ -33,14 +33,23 @@ namespace xn
     virtual bool SetGeometry(PolygonGroup const &) = 0;
     virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
 
-    virtual void DoFrame(UIContext *) = 0;
+    void DoFrame(UIContext *);
 
   protected:
 
+    virtual void _DoFrame(UIContext *) = 0;
+    virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
+
+    uint32_t m_windowFlags;
     bool *m_pShow;
     Logger *m_pLogger;
     IMemoryManager *m_pMemMngr;
     MessageBus *m_pMessageBus;
+
+  private:
+    bool m_hasFocus;
+    std::string m_name;
+    uint32_t m_ID;
   };
 }
 

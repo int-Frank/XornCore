@@ -2,6 +2,7 @@
 #ifndef XNMESSAGEBUS_H
 #define XNMESSAGEBUS_H
 
+#include <type_traits>
 
 #include "xnMessage.h"
 
@@ -20,9 +21,9 @@ namespace xn
 
     // Messages must be created on the client side!
     template<typename T>
-    Message *NewMessage()
+    T *NewMessage()
     {
-      static_assert(std::is_base_of(T, Message), "Can only create messages!");
+      static_assert(std::is_base_of<Message, T>::value, "Type must be a subclass of Message!");
       return T::Create();
     }
 

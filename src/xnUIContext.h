@@ -22,6 +22,7 @@ namespace xn
     virtual void Compose() = 0;
     virtual void Draw() = 0;
 
+    // Returns true if window has focus
     virtual bool BeginWindow(const char *name, bool *p_open = nullptr, uint32_t flags = 0) = 0;
     virtual void EndWindow() = 0;
 
