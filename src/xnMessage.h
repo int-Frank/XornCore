@@ -5,58 +5,41 @@
 #include <string>
 #include <type_traits>
 
-#include "Memory.h"
-
 namespace xn
 {
+  enum class MessageType
+  {
+    InsertVertex,
+    RemoveVertex,
+    MoveVertex,
+    TransformPolygon,
+    RemovePolygon,
+    AddPolygon,
+    CLIENT_START = 0xFFFF // Client ID's can start here
+  };
+
   class Message
   {
   public:
 
     enum class Flag : uint32_t
     {
-      Handled = 1
+      Handled = 1 << 0
     };
 
   public:
 
     Message();
 
-    bool QueryFlag(Flag a_flag) const;
-    void SetFlag(Flag a_flag, bool);
-    uint32_t GetCategory() const;
+    bool QueryFlag(Flag flag) const;
+    void SetFlag(Flag flag, bool);
 
-    // All these defined in the macro (user do NOT implement)
     virtual uint32_t GetID() const = 0;
-
-    // User defined
     virtual std::string ToString() const = 0;
+    virtual Message *Clone() const = 0;
 
   protected:
     uint32_t m_flags;
-    static uint32_t GetNewID(uint32_t a_class);
   };
-  
-#define MESSAGE_HEADER \
-  private:\
-    static uint32_t s_ID;\
-  public:\
-    static uint32_t GetStaticID();\
-    uint32_t GetID() const override;\
-    size_t Size() const override;\
-    std::string ToString() const override;
-
-#define MESSAGE_DEFINITIONS(TYPE, CLASS) uint32_t TYPE::s_ID(0);\
-  static_assert(std::is_trivially_destructible<TYPE>::value, #TYPE " must be trivially destructible");\
-  uint32_t TYPE::GetStaticID()\
-  {\
-    if (s_ID == 0)\
-      s_ID = GetNewID(CLASS);\
-    return s_ID;\
-  }\
-  uint32_t TYPE::GetID() const\
-  {\
-    return GetStaticID();\
-  }
 }
 #endif

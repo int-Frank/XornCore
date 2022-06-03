@@ -4,11 +4,19 @@
 
 namespace xn
 {
-  Module::Module(bool *pShow, Logger *pLogger)
-    : m_pLogger(pLogger)
-    , m_pShow(pShow)
+  Module::Module(ModuleInitData *pData)
+    : m_pShow(nullptr)
+    , m_pLogger(nullptr)
+    , m_pMessageBus(nullptr)
+    , m_pMemMngr(nullptr)
   {
-
+    if (pData != nullptr)
+    {
+      m_pShow = pData->pShow;
+      m_pLogger = pData->pLogger;
+      m_pMessageBus = pData->pMsgBus;
+      m_pMemMngr = pData->pMemMngr;
+    }
   }
 
   Module::~Module()

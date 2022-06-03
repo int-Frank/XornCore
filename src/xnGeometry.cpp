@@ -68,6 +68,16 @@ namespace xn
     return result;
   }
 
+  uint32_t Polygon::GetID() const
+  {
+    return m_id;
+  }
+
+  void Polygon::SetID(uint32_t id)
+  {
+    m_id = id;
+  }
+
   void Polygon::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
   {
     if (Size() < 2)
@@ -167,112 +177,5 @@ namespace xn
     }
 
     return true;
-  }
-
-  void GeometryCollection::Clear()
-  {
-    m_list.clear();
-  }
-
-  std::vector<char> GeometryCollection::ToImGuiNameString() const
-  {
-    std::vector<char> result;
-    for (auto const &kv : m_list)
-    {
-      for (char c : kv.first)
-        result.push_back(c);
-      result.push_back(0);
-    }
-    result.push_back(0);
-    return result;
-  }
-
-  std::vector<std::string> GeometryCollection::GetModelNames() const
-  {
-    std::vector<std::string> result;
-    for (auto const &kv : m_list)
-      result.push_back(kv.first);
-    return result;
-  }
-
-  int GeometryCollection::GetIndex(std::string const &name) const
-  {
-    int i = 0;
-    for (auto const &kv : m_list)
-    {
-      if (name == kv.first)
-        return i;
-      i++;
-    }
-    return -1;
-  }
-
-  PolygonGroup const *GeometryCollection::Find(std::string const &name) const
-  {
-    auto it = m_list.find(name);
-    if (it != m_list.end())
-      return &(it->second);
-    return nullptr;
-  }
-
-  PolygonGroup *GeometryCollection::Find(std::string const &name)
-  {
-    auto it = m_list.find(name);
-    if (it != m_list.end())
-      return &(it->second);
-    return nullptr;
-  }
-
-  bool GeometryCollection::Exists(std::string const &name) const
-  {
-    auto it = m_list.find(name);
-    return it != m_list.end();
-  }
-
-  void GeometryCollection::PushBack(std::string const &name, PolygonGroup const &geom)
-  {
-    m_list[name] = geom;
-  }
-
-  bool GeometryCollection::GetNameFromIndex(int index, std::string &name)
-  {
-    if (index < 0 || index >= m_list.size())
-      return false;
-
-    auto it = m_list.begin();
-    for (int i = 0; i < index; i++)
-      it++;
-
-    name = it->first;
-    return true;
-  }
-
-  PolygonGroup const *GeometryCollection::GetFromIndex(int index) const
-  {
-    if (index < 0 || index >= m_list.size())
-      return nullptr;
-
-    auto it = m_list.begin();
-    for (int i = 0; i < index; i++)
-      it++;
-
-    return &(it->second);
-  }
-
-  PolygonGroup *GeometryCollection::GetFromIndex(int index)
-  {
-    if (index < 0 || index >= m_list.size())
-      return nullptr;
-
-    auto it = m_list.begin();
-    for (int i = 0; i < index; i++)
-      it++;
-
-    return &(it->second);
-  }
-
-  std::map<std::string, PolygonGroup> const *GeometryCollection::GetList() const
-  {
-      return &m_list;
   }
 }

@@ -53,6 +53,12 @@ namespace xn
 
     void Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform = Transform()) const;
     Polygon GetTransformed(mat33 const &) const;
+
+    uint32_t GetID() const;
+    void SetID(uint32_t id);
+
+  private:
+    uint32_t m_id;
   };
 
   class PolygonGroup
@@ -64,30 +70,6 @@ namespace xn
     Dg::ErrorCode GetAABB(aabb *pOut) const;
 
     std::vector<Polygon> polygons;
-  };
-
-  class GeometryCollection
-  {
-  public:
-
-    void Clear();
-    std::vector<std::string> GetModelNames() const;
-    std::vector<char> ToImGuiNameString() const;
-    int GetIndex(std::string const &) const;
-    PolygonGroup const *Find(std::string const &) const;
-    PolygonGroup *Find(std::string const &);
-    bool Exists(std::string const &) const;
-    void PushBack(std::string const &, PolygonGroup const &);
-
-    bool GetNameFromIndex(int index, std::string &);
-    PolygonGroup const *GetFromIndex(int index) const;
-    PolygonGroup *GetFromIndex(int index);
-
-    std::map<std::string, PolygonGroup> const * GetList() const;
-
-  private:
-
-    std::map<std::string, PolygonGroup> m_list;
   };
 }
 

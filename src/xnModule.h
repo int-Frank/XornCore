@@ -6,6 +6,7 @@
 #include "xnGeometry.h"
 #include "xnCommon.h"
 #include "xnUIContext.h"
+#include "xnModuleInitData.h"
 
 // Helpers for module loggin
 #define M_LOG_DEBUG(...)   do{if (m_pLogger != nullptr) {char *pMsg = nullptr; ::xn::asprintf(&pMsg, __VA_ARGS__); m_pLogger->LogDebug(pMsg); delete[] pMsg;}} while(false)
@@ -16,13 +17,12 @@
 namespace xn
 {
   class Renderer;
-  class Logger;
 
   class Module
   {
   public:
 
-    Module(bool *pShow, Logger *);
+    Module(ModuleInitData *);
     virtual ~Module();
 
     void SetLogger(Logger *);
@@ -37,8 +37,10 @@ namespace xn
 
   protected:
 
-    Logger *m_pLogger;
     bool *m_pShow;
+    Logger *m_pLogger;
+    IMemoryManager *m_pMemMngr;
+    MessageBus *m_pMessageBus;
   };
 }
 
