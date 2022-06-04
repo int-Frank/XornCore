@@ -48,6 +48,9 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   MESSAGE_DEFINITION(TransformPolygon);
   MESSAGE_DEFINITION(RemovePolygon);
   MESSAGE_DEFINITION(AddPolygon);
+  MESSAGE_DEFINITION(MouseDown);
+  MESSAGE_DEFINITION(MouseUp);
+  MESSAGE_DEFINITION(MouseMove);
   MESSAGE_DEFINITION(WindowGainedFocus);
   MESSAGE_DEFINITION(WindowLostFocus);
   MESSAGE_DEFINITION(WindowClosed);
@@ -77,6 +80,27 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   {
     std::stringstream ss;
     ss << "WindowClosed: ID: " << windowID;
+    return ss.str();
+  }
+
+  std::string Message_MouseDown::ToString() const
+  {
+    std::stringstream ss;
+    ss << "MouseDown: [" << position.x() << ", " << position.y() << "]";
+    return ss.str();
+  }
+
+  std::string Message_MouseUp::ToString() const
+  {
+    std::stringstream ss;
+    ss << "MouseUp: [" << position.x() << ", " << position.y() << "]";
+    return ss.str();
+  }
+
+  std::string Message_MouseMove::ToString() const
+  {
+    std::stringstream ss;
+    ss << "MouseMove: [" << position.x() << ", " << position.y() << "]";
     return ss.str();
   }
 }

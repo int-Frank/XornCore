@@ -28,7 +28,7 @@ namespace xn
     WindowClosed,
 
     // End
-    CLIENT_START = 0xFFFF // Client ID's can start here
+    XORN_END = 0xFFFF // Custom ID's can start here
   };
 
   class Message
