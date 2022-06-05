@@ -8,7 +8,6 @@
 
 namespace xn
 {
-  // Messages and message data should be created through an IMemoryManager given by the client.
   class MessageBus
   {
   public:
@@ -19,7 +18,6 @@ namespace xn
     void Post(Message *);
     Message * PopMessage();
 
-    // Messages must be created on the client side!
     template<typename T>
     T *NewMessage()
     {

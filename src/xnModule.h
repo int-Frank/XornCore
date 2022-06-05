@@ -9,10 +9,10 @@
 #include "xnModuleInitData.h"
 
 // Helpers for module loggin
-#define M_LOG_DEBUG(...)   do{if (m_pLogger != nullptr) {char *pMsg = nullptr; ::xn::asprintf(&pMsg, __VA_ARGS__); m_pLogger->LogDebug(pMsg); delete[] pMsg;}} while(false)
-#define M_LOG_INFO(...)   do{if (m_pLogger != nullptr) {char *pMsg = nullptr; ::xn::asprintf(&pMsg, __VA_ARGS__); m_pLogger->LogInfo(pMsg); delete[] pMsg;}} while(false)
-#define M_LOG_WARNING(...)   do{if (m_pLogger != nullptr) {char *pMsg = nullptr; ::xn::asprintf(&pMsg, __VA_ARGS__); m_pLogger->LogWarning(pMsg); delete[] pMsg;}} while(false)
-#define M_LOG_ERROR(...)   do{if (m_pLogger != nullptr) {char *pMsg = nullptr; ::xn::asprintf(&pMsg, __VA_ARGS__); m_pLogger->LogError(pMsg); delete[] pMsg;}} while(false)
+#define M_LOG_DEBUG(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogDebug(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
+#define M_LOG_INFO(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogInfo(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
+#define M_LOG_WARNING(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogWarning(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
+#define M_LOG_ERROR(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogError(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
 
 namespace xn
 {
