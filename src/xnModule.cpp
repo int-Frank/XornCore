@@ -46,13 +46,13 @@ namespace xn
       {
         Message_WindowGainedFocus * pMsg = m_pMessageBus->NewMessage<xn::Message_WindowGainedFocus>();
         pMsg->windowID = m_ID;
-        m_pMessageBus->PostMessage(pMsg);
+        m_pMessageBus->Post(pMsg);
       }
       else
       {
         Message_WindowLostFocus *pMsg = m_pMessageBus->NewMessage<xn::Message_WindowLostFocus>();
         pMsg->windowID = m_ID;
-        m_pMessageBus->PostMessage(pMsg);
+        m_pMessageBus->Post(pMsg);
       }
       m_hasFocus = hasFocus;
     }
@@ -71,7 +71,7 @@ namespace xn
     {
       Message_WindowClosed *pMsg = m_pMessageBus->NewMessage<xn::Message_WindowClosed>();
       pMsg->windowID = m_ID;
-      m_pMessageBus->PostMessage(pMsg);
+      m_pMessageBus->Post(pMsg);
     }
   }
 

@@ -16,7 +16,7 @@ namespace xn
     MessageBus();
     ~MessageBus();
 
-    void PostMessage(Message *);
+    void Post(Message *);
     Message * PopMessage();
 
     // Messages must be created on the client side!

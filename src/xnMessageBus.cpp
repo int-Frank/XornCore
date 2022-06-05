@@ -55,7 +55,7 @@ namespace xn
     delete m_pimpl;
   }
 
-  void MessageBus::PostMessage(Message *pMsg)
+  void MessageBus::Post(Message *pMsg)
   {
     m_pimpl->messageQueue.PushBack(pMsg);
   }

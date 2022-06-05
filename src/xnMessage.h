@@ -47,11 +47,20 @@ namespace xn
     bool QueryFlag(Flag flag) const;
     void SetFlag(Flag flag, bool);
 
-    virtual MessageType GetType() const = 0;
+    virtual uint32_t GetType() const = 0;
     virtual std::string ToString() const = 0;
 
   protected:
     uint32_t m_flags;
   };
+
+#define MESSAGE_HEADER(t) \
+  class Message_ ## t : public ::xn::Message {\
+  public:\
+    static size_t Size();\
+    static uint32_t GetStaticType();\
+    uint32_t GetType() const override;\
+    std::string ToString() const override;\
+    static Message_ ## t * Create();
 }
 #endif

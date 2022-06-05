@@ -35,9 +35,9 @@ namespace xn
   // Engine Messages
   //-------------------------------------------------------------------
 
-#define MESSAGE_DEFINITION(t) MessageType Message_ ## t::GetStaticType() {return MessageType::t;}\
+#define MESSAGE_DEFINITION(t) uint32_t Message_ ## t::GetStaticType() {return (uint32_t)MessageType::t;}\
 size_t Message_ ## t::Size() {return sizeof(Message_ ## t);}\
-MessageType Message_ ## t::GetType() const {return GetStaticType();}\
+uint32_t Message_ ## t::GetType() const {return GetStaticType();}\
 Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
 
 #define MESSAGE_DEFAULT_STRING(t) std::string Message_ ## t::ToString() const { return std::string(#t); }

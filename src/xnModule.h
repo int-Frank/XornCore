@@ -17,6 +17,7 @@
 namespace xn
 {
   class Renderer;
+  class Message;
 
   class Module
   {
@@ -32,6 +33,7 @@ namespace xn
     // TODO this should be a PolygonWithHoles class
     virtual bool SetGeometry(PolygonGroup const &) = 0;
     virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
+    virtual void Handle(Message *) {};
 
     void DoFrame(UIContext *);
 

@@ -9,16 +9,6 @@
 #include "xnCommon.h"
 #include "xnGeometry.h"
 
-#define MESSAGE_HEADER(t) \
-  class Message_ ## t : public Message {\
-  public:\
-    static size_t Size();\
-    static MessageType GetStaticType();\
-    MessageType GetType() const override;\
-    std::string ToString() const override;\
-    static Message_ ## t * Create();
-
-
 namespace xn
 {
   //-------------------------------------------------------------------
