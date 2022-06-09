@@ -7,6 +7,7 @@
 #include "xnCommon.h"
 #include "xnUIContext.h"
 #include "xnModuleInitData.h"
+#include "xnFlagArray.h"
 
 // Helpers for module loggin
 #define M_LOG_DEBUG(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogDebug(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
@@ -35,7 +36,7 @@ namespace xn
     virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
     virtual void Handle(Message *) {};
 
-    void DoFrame(UIContext *);
+    void DoFrame(UIContext *, bool isActive);
 
   protected:
 
@@ -44,7 +45,7 @@ namespace xn
     virtual void _DoFrame(UIContext *) = 0;
     virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
 
-    uint32_t m_windowFlags;
+    UIFlags m_windowFlags;
     Logger *m_pLogger;
     IMemoryManager *m_pMemMngr;
     MessageBus *m_pMessageBus;

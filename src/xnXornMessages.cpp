@@ -51,9 +51,9 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   MESSAGE_DEFINITION(MouseDown);
   MESSAGE_DEFINITION(MouseUp);
   MESSAGE_DEFINITION(MouseMove);
-  MESSAGE_DEFINITION(WindowGainedFocus);
-  MESSAGE_DEFINITION(WindowLostFocus);
-  MESSAGE_DEFINITION(WindowClosed);
+  MESSAGE_DEFINITION(ModuleGainedFocus);
+  MESSAGE_DEFINITION(ModuleLostFocus);
+  MESSAGE_DEFINITION(ModuleClosed);
   
   MESSAGE_DEFAULT_STRING(InsertVertex);
   MESSAGE_DEFAULT_STRING(RemoveVertex);
@@ -62,24 +62,24 @@ Message_ ## t * Message_ ## t::Create() {return new Message_ ## t();}
   MESSAGE_DEFAULT_STRING(RemovePolygon);
   MESSAGE_DEFAULT_STRING(AddPolygon);
 
-  std::string Message_WindowGainedFocus::ToString() const
+  std::string Message_ModuleGainedFocus::ToString() const
   {
     std::stringstream ss;
-    ss << "WindowGainedFocus: ID: " << windowID;
+    ss << "ModuleGainedFocus: ID: " << windowID;
     return ss.str();
   }
 
-  std::string Message_WindowLostFocus::ToString() const
+  std::string Message_ModuleLostFocus::ToString() const
   {
     std::stringstream ss;
-    ss << "WindowLostFocus: ID: " << windowID;
+    ss << "ModuleLostFocus: ID: " << windowID;
     return ss.str();
   }
 
-  std::string Message_WindowClosed::ToString() const
+  std::string Message_ModuleClosed::ToString() const
   {
     std::stringstream ss;
-    ss << "WindowClosed: ID: " << windowID;
+    ss << "ModuleClosed: ID: " << windowID;
     return ss.str();
   }
 

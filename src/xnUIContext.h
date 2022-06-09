@@ -1,20 +1,21 @@
 #ifndef XNUICONTEXT_H
 #define XNUICONTEXT_H
 
-#include <stdint.h>
-
 #include "DgVector.h"
+#include "xnFlagArray.h"
 
 namespace xn
 {
+  enum class UIFlag
+  {
+    IsActive
+  };
+
+  using UIFlags = FlagArray<UIFlag>;
+
   class UIContext
   {
   public:
-
-    enum WindowFlags
-    {
-
-    };
 
     virtual ~UIContext() {}
 
@@ -23,7 +24,7 @@ namespace xn
     virtual void Draw() = 0;
 
     // Returns true if window has focus
-    virtual bool BeginWindow(const char *name, bool *p_open = nullptr, uint32_t flags = 0) = 0;
+    virtual bool BeginWindow(const char *name, bool *p_open = nullptr, UIFlags const *pFlags = nullptr) = 0;
     virtual void EndWindow() = 0;
 
     virtual Dg::Vector2<float> GetCursorPos() = 0;
@@ -39,8 +40,8 @@ namespace xn
     virtual void Text(const char *fmt, ...) = 0;
     virtual bool Checkbox(char const *pLabel, bool *pVal) = 0;
 
-    virtual bool SliderFloat(const char *label, float *v, float v_min, float v_max, const char *format = "%.3f", uint32_t flags = 0) = 0;
-    virtual bool SliderInt(const char *label, int *v, int v_min, int v_max, const char *format = "%d", uint32_t flags = 0) = 0;
+    virtual bool SliderFloat(const char *label, float *v, float v_min, float v_max, const char *format = "%.3f", UIFlags const *pFlags = nullptr) = 0;
+    virtual bool SliderInt(const char *label, int *v, int v_min, int v_max, const char *format = "%d", UIFlags const *pFlags = nullptr) = 0;
   };
 }
 

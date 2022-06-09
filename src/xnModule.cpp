@@ -8,7 +8,7 @@ namespace xn
 {
   Module::Module(ModuleInitData *pData)
     : m_hasFocus(false)
-    , m_windowFlags(0)
+    , m_windowFlags()
     , m_name()
     , m_ID(0)
     , m_pLogger(nullptr)
@@ -35,22 +35,23 @@ namespace xn
     m_pLogger = pLogger;
   }
 
-  void Module::DoFrame(UIContext *pContext)
+  void Module::DoFrame(UIContext *pContext, bool isActive)
   {
     NewFrame();
     bool show = true;
-    bool hasFocus = pContext->BeginWindow(m_name.c_str(), &show, m_windowFlags);
+    m_windowFlags.SetFlag(UIFlag::IsActive, isActive);
+    bool hasFocus = pContext->BeginWindow(m_name.c_str(), &show, &m_windowFlags);
     if (hasFocus != m_hasFocus && m_pMessageBus != nullptr)
     {
       if (hasFocus)
       {
-        Message_WindowGainedFocus * pMsg = m_pMessageBus->NewMessage<xn::Message_WindowGainedFocus>();
+        Message_ModuleGainedFocus * pMsg = m_pMessageBus->NewMessage<xn::Message_ModuleGainedFocus>();
         pMsg->windowID = m_ID;
         m_pMessageBus->Post(pMsg);
       }
       else
       {
-        Message_WindowLostFocus *pMsg = m_pMessageBus->NewMessage<xn::Message_WindowLostFocus>();
+        Message_ModuleLostFocus *pMsg = m_pMessageBus->NewMessage<xn::Message_ModuleLostFocus>();
         pMsg->windowID = m_ID;
         m_pMessageBus->Post(pMsg);
       }
@@ -69,7 +70,7 @@ namespace xn
   {
     if (m_pMessageBus != nullptr)
     {
-      Message_WindowClosed *pMsg = m_pMessageBus->NewMessage<xn::Message_WindowClosed>();
+      Message_ModuleClosed *pMsg = m_pMessageBus->NewMessage<xn::Message_ModuleClosed>();
       pMsg->windowID = m_ID;
       m_pMessageBus->Post(pMsg);
     }

@@ -57,15 +57,15 @@ namespace xn
     vec2 position;
   };
 
-  MESSAGE_HEADER(WindowGainedFocus)
+  MESSAGE_HEADER(ModuleGainedFocus)
     uint32_t windowID;
   };
 
-  MESSAGE_HEADER(WindowLostFocus)
+  MESSAGE_HEADER(ModuleLostFocus)
     uint32_t windowID;
   };
 
-  MESSAGE_HEADER(WindowClosed)
+  MESSAGE_HEADER(ModuleClosed)
     uint32_t windowID;
   };
 }

@@ -22,10 +22,10 @@ namespace xn
     MouseUp,
     MouseMove,
 
-    // Window
-    WindowGainedFocus,
-    WindowLostFocus,
-    WindowClosed,
+    // Module
+    ModuleGainedFocus,
+    ModuleLostFocus,
+    ModuleClosed,
 
     // End
     XORN_END = 0xFFFF // Custom ID's can start here
