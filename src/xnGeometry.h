@@ -11,6 +11,7 @@
 #include "DgMatrix33.h"
 #include "DgAABB.h"
 #include "DgPolygon.h"
+#include "xnFlagArray.h"
 
 namespace xn
 {
@@ -20,6 +21,12 @@ namespace xn
   typedef Dg::Matrix33<float> mat33;
   typedef Dg::AABB<float, 2> aabb;
   typedef Dg::Polygon2<float> DgPolygon;
+
+  enum class PolygonFlag
+  {
+    IsBoundary,
+    ValidHole
+  };
 
   class LineProperties;
   class Renderer;
@@ -56,9 +63,12 @@ namespace xn
 
     uint32_t GetID() const;
     void SetID(uint32_t id);
+    bool QueryFlag(PolygonFlag) const;
+    void SetFlag(PolygonFlag, bool);
 
   private:
     uint32_t m_id;
+    FlagArray<PolygonFlag> m_flags;
   };
 
   class PolygonGroup

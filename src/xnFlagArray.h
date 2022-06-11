@@ -38,7 +38,7 @@ namespace xn
   template<typename T>
   void FlagArray<T>::SetFlag(T const &flag, bool isOn)
   {
-    uint64_t index = (uint64_t)flag;
+    uint32_t index = (uint32_t)flag;
     if (index >= m_flagArray.size() && !isOn)
       return;
 
@@ -61,7 +61,7 @@ namespace xn
   template<typename T>
   bool FlagArray<T>::QueryFlag(T const &flag) const
   {
-    uint64_t index = (uint64_t)flag;
+    uint32_t index = (uint32_t)flag;
     if (index >= m_flagArray.size())
       return false;
     return m_flagArray[index];

@@ -78,6 +78,16 @@ namespace xn
     m_id = id;
   }
 
+  bool Polygon::QueryFlag(PolygonFlag flag) const
+  {
+    return m_flags.QueryFlag(flag);
+  }
+
+  void Polygon::SetFlag(PolygonFlag flag, bool isOn)
+  {
+    m_flags.SetFlag(flag, isOn);
+  }
+
   void Polygon::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
   {
     if (Size() < 2)
