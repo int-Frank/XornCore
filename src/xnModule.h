@@ -18,7 +18,6 @@
 namespace xn
 {
   class Renderer;
-  class Message;
 
   class Module
   {
@@ -29,29 +28,29 @@ namespace xn
 
     void SetLogger(Logger *);
 
-    // The first item in the geometry will be the boundary and will have a CCW winding.
-    // Subsequent polygons will be holes and will have CW windings.
-    // TODO this should be a PolygonWithHoles class
-    virtual bool SetGeometry(PolygonGroup const &) = 0;
+    virtual bool SetGeometry(PolygonWithHoles const &) = 0;
     virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
-    virtual void Handle(Message *) {};
 
-    void DoFrame(UIContext *, bool isActive);
+    virtual void MouseDown(vec2 const &) {};
+    virtual void MouseUp(vec2 const &) {};
+    virtual void MouseMove(vec2 const &) {};
+
+    void DoFrame(UIContext *);
+
+    bool HasFocus() const { return m_hasFocus; }
+    bool IsOpen() const { return m_show; }
 
   protected:
-
-    void Close();
 
     virtual void _DoFrame(UIContext *) = 0;
     virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
 
     UIFlags m_windowFlags;
     Logger *m_pLogger;
-    IMemoryManager *m_pMemMngr;
-    MessageBus *m_pMessageBus;
 
   private:
     bool m_hasFocus;
+    bool m_show;
     std::string m_name;
     uint32_t m_ID;
   };

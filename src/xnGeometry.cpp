@@ -1,9 +1,4 @@
 
-#include <iostream>
-#include <sstream>
-#include <filesystem>
-#include <fstream>
-
 #include "xnRenderer.h"
 #include "xnGeometry.h"
 #include "xnCommon.h"
@@ -13,7 +8,7 @@
 namespace xn
 {
   Transform::Transform()
-    : position(0.f, 0.f)
+    : translation(0.f, 0.f)
     , rotation(0.f)
     , scale(1.f, 1.0f)
   {
@@ -22,7 +17,7 @@ namespace xn
 
   void Transform::Reset()
   {
-    position = vec2(0.f, 0.f);
+    translation = vec2(0.f, 0.f);
     rotation = 0.f;
     scale = vec2(1.f, 1.f);
   }
@@ -33,30 +28,23 @@ namespace xn
 
     mScale.Scaling(scale);
     mRotation.Rotation(rotation);
-    mTranslation.Translation(position);
+    mTranslation.Translation(translation);
 
     return mScale * mRotation * mTranslation;
   }
 
-  SegmentCollection SegmentCollection::GetTransformed(mat33 const &t) const
+  void PolygonLoop::Render(Renderer *pRenderer, Draw::Stroke const &stroke) const
   {
-    SegmentCollection result;
+    if (Size() < 2)
+      return;
 
-    for (seg const &s : segments)
-    {
-      vec3 p0(s.GetP0().x(), s.GetP0().y(), 1.f);
-      vec3 p1(s.GetP1().x(), s.GetP1().y(), 1.f);
-      p0 = p0 * t;
-      p1 = p1 * t;
-      result.segments.push_back(seg(vec2(p0.x(), p0.y()), vec2(p1.x(), p1.y())));
-    }
-
-    return result;
+    for (auto it = cEdgesBegin(); it != cEdgesEnd(); it++)
+      pRenderer->DrawLine(*it, stroke);
   }
 
-  Polygon Polygon::GetTransformed(mat33 const &t) const
+  PolygonLoop PolygonLoop::GetTransformed(mat33 const &t) const
   {
-    Polygon result;
+    PolygonLoop result;
 
     for (auto it = cPointsBegin(); it != cPointsEnd(); it++)
     {
@@ -68,124 +56,61 @@ namespace xn
     return result;
   }
 
-  uint32_t Polygon::GetID() const
+  Dg::ErrorCode PolygonLoop::GetAABB(aabb *pOut) const
   {
-    return m_id;
-  }
+    Dg::ErrorCode result;
+    vec2 p0;
 
-  void Polygon::SetID(uint32_t id)
-  {
-    m_id = id;
-  }
+    DG_ERROR_IF(Size() == 0, Dg::ErrorCode::NotFound);
 
-  bool Polygon::QueryFlag(PolygonFlag flag) const
-  {
-    return m_flags.QueryFlag(flag);
-  }
+    p0 = *cPointsBegin();
+    *pOut = aabb(p0, p0);
 
-  void Polygon::SetFlag(PolygonFlag flag, bool isOn)
-  {
-    m_flags.SetFlag(flag, isOn);
-  }
+    for (auto it = cPointsBegin(); it != cPointsEnd(); it++)
+      (*pOut) += *it;
 
-  void Polygon::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
-  {
-    if (Size() < 2)
-      return;
+    result = Dg::ErrorCode::None;
+  epilogue:
 
-    mat33 T_Model_World = transform.ToMatrix33();
-    mat33 view = T_Model_World * T_World_View;
-
-    Polygon transformed = GetTransformed(view);
-
-    for (auto it = transformed.cEdgesBegin(); it != transformed.cEdgesEnd(); it++)
-      pRenderer->DrawLine(*it, opts);
-  }
-
-  void PolygonGroup::Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform) const
-  {
-    for (auto const &polygon : polygons)
-      polygon.Render(pRenderer, T_World_View, opts, transform);
-  }
-
-  Dg::ErrorCode PolygonGroup::GetAABB(aabb *pOut) const
-  {
-    aabb *pTemp = nullptr;
-    Dg::ErrorCode result = Dg::ErrorCode::NotFound;
-
-    for (auto const &polygon : polygons)
-    {
-      for (auto it = polygon.cPointsBegin(); it != polygon.cPointsEnd(); it++)
-      {
-        if (pTemp == nullptr)
-          pTemp = new aabb(*it, *it);
-        else
-          (*pTemp) += *it;
-      }
-    }
-
-    if (pTemp != nullptr)
-    {
-      *pOut = *pTemp;
-      delete pTemp;
-      result = Dg::ErrorCode::None;
-    }
     return result;
   }
 
-  bool ReadPointsFromOBJ(std::string const &file, std::vector<vec2> &out)
+  void PolygonWithHoles::Render(Renderer *pRenderer, Draw::Stroke const &stroke) const
   {
-    std::ifstream ifs(file);
-    if (!ifs.good())
-      return false;
-
-    std::string line;
-    while (std::getline(ifs, line))
-    {
-      std::istringstream iss(line);
-      std::string tag;
-      iss >> tag;
-
-      if (tag == "v")
-      {
-        vec2 v;
-        if (!(iss >> v.x() >> v.y()))
-          return false;
-
-        out.push_back(v);
-      }
-    }
-
-    return true;
+    for (auto it = loops.cbegin(); it != loops.cend(); it++)
+      it->Render(pRenderer, stroke);
   }
 
-  bool PolygonGroup::ReadFromOBJ(std::string const &file)
+  PolygonWithHoles PolygonWithHoles::GetTransformed(mat33 const &transform) const
   {
-    std::vector<vec2> points;
-    if (!ReadPointsFromOBJ(file, points))
-      return false;
+    PolygonWithHoles newPolygon;
 
-    std::ifstream ifs(file);
-    if (!ifs.good())
-      return false;
+    for (auto it = loops.cbegin(); it != loops.cend(); it++)
+      newPolygon.loops.push_back(it->GetTransformed(transform));
 
-    std::string line;
-    while (std::getline(ifs, line))
-    {
-      std::istringstream iss(line);
-      std::string tag;
-      iss >> tag;
+    return newPolygon;
+  }
 
-      if (tag == "l")
-      {
-        Polygon polygon;
-        int index;
-        while (iss >> index)
-          polygon.PushBack(points[index - 1]);
-        polygons.push_back(polygon);
-      }
-    }
+  Dg::ErrorCode PolygonWithHoles::GetAABB(aabb *pOut) const
+  {
+    Dg::ErrorCode result;
+    aabb bbox;
 
-    return true;
+    DG_ERROR_IF(loops.size() == 0, Dg::ErrorCode::NotFound);
+    DG_ERROR_CHECK(loops.front().GetAABB(&bbox));
+
+    result = Dg::ErrorCode::None;
+  epilogue:
+
+    return result;
+  }
+
+  void PolygonWithHoles::Push(PolygonLoop const &loop)
+  {
+    float frontArea = loops.size() == 0 ? 0.f : loops.front().Area();
+    if (loop.Area() > frontArea)
+      loops.push_front(loop);
+    else
+      loops.push_back(loop);
   }
 }

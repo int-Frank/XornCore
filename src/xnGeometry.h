@@ -11,7 +11,8 @@
 #include "DgMatrix33.h"
 #include "DgAABB.h"
 #include "DgPolygon.h"
-#include "xnFlagArray.h"
+#include "DgDoublyLinkedList.h"
+#include "xnDraw.h"
 
 namespace xn
 {
@@ -22,13 +23,6 @@ namespace xn
   typedef Dg::AABB<float, 2> aabb;
   typedef Dg::Polygon2<float> DgPolygon;
 
-  enum class PolygonFlag
-  {
-    IsBoundary,
-    ValidHole
-  };
-
-  class LineProperties;
   class Renderer;
 
   class Transform
@@ -40,46 +34,35 @@ namespace xn
     void Reset();
     mat33 ToMatrix33() const;
 
-    vec2 position;
+    vec2 translation;
     float rotation;
     vec2 scale;
   };
 
-  class SegmentCollection
+  class PolygonLoop : public DgPolygon
   {
   public:
 
-    SegmentCollection GetTransformed(mat33 const &) const;
-
-    std::vector<seg> segments;
+    void Render(Renderer *pRenderer, Draw::Stroke const &stroke) const;
+    PolygonLoop GetTransformed(mat33 const &) const;
+    Dg::ErrorCode GetAABB(aabb *pOut) const;
   };
 
-  class Polygon : public DgPolygon
+  // The first loop will be the boundary and will have a CCW winding.
+  // Subsequent loops will be holes and will have CW windings.
+  class PolygonWithHoles
   {
   public:
 
-    void Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform = Transform()) const;
-    Polygon GetTransformed(mat33 const &) const;
-
-    uint32_t GetID() const;
-    void SetID(uint32_t id);
-    bool QueryFlag(PolygonFlag) const;
-    void SetFlag(PolygonFlag, bool);
-
-  private:
-    uint32_t m_id;
-    FlagArray<PolygonFlag> m_flags;
-  };
-
-  class PolygonGroup
-  {
-  public:
-
-    void Render(Renderer *pRenderer, mat33 const &T_World_View, LineProperties const &opts, Transform const &transform = Transform()) const;
-    bool ReadFromOBJ(std::string const &file);
+    void Render(Renderer *pRenderer, Draw::Stroke const &stroke) const;
+    PolygonWithHoles GetTransformed(mat33 const &) const;
     Dg::ErrorCode GetAABB(aabb *pOut) const;
 
-    std::vector<Polygon> polygons;
+    // Use to properly sort loops by size.
+    // This ensures the boundary will be the first loop.
+    void Push(PolygonLoop const &);
+
+    Dg::DoublyLinkedList<PolygonLoop> loops;
   };
 }
 
