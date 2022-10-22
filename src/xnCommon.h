@@ -9,6 +9,14 @@
 
 namespace xn
 {
+  enum class MouseInput
+  {
+    LeftButton,
+    RightButton,
+    MiddleButton,
+    COUNT
+  };
+
   int asprintf(char **ppBuf, char const *fmt, ...);
 }
 
