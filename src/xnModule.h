@@ -31,7 +31,6 @@ namespace xn
     virtual bool SetGeometry(PolygonWithHoles const &) = 0;
     virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
 
-    virtual void MouseScroll(float val) {};
     virtual void MouseDown(MouseInput, vec2 const &) {};
     virtual void MouseUp(MouseInput) {};
     virtual void MouseMove(vec2 const &) {};
