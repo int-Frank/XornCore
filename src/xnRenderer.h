@@ -3,6 +3,7 @@
 
 #include "DgVector.h"
 #include "DgSegment.h"
+#include "DgPolygon.h"
 #include "xnDraw.h"
 
 namespace xn
