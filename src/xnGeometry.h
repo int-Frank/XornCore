@@ -12,7 +12,6 @@
 #include "DgAABB.h"
 #include "DgPolygon.h"
 #include "DgDoublyLinkedList.h"
-#include "xnDraw.h"
 
 namespace xn
 {
@@ -22,8 +21,6 @@ namespace xn
   typedef Dg::Matrix33<float> mat33;
   typedef Dg::AABB<float, 2> aabb;
   typedef Dg::Polygon2<float> DgPolygon;
-
-  class Renderer;
 
   class Transform
   {
@@ -43,7 +40,6 @@ namespace xn
   {
   public:
 
-    void Render(Renderer *pRenderer, Draw::Stroke const &stroke) const;
     PolygonLoop GetTransformed(mat33 const &) const;
     Dg::ErrorCode GetAABB(aabb *pOut) const;
   };
@@ -54,7 +50,6 @@ namespace xn
   {
   public:
 
-    void Render(Renderer *pRenderer, Draw::Stroke const &stroke) const;
     PolygonWithHoles GetTransformed(mat33 const &) const;
     Dg::ErrorCode GetAABB(aabb *pOut) const;
 

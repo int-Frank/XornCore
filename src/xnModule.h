@@ -17,7 +17,7 @@
 
 namespace xn
 {
-  class Renderer;
+  class IScene;
 
   class Module
   {
@@ -29,20 +29,19 @@ namespace xn
     void SetLogger(Logger *);
 
     virtual bool SetGeometry(PolygonWithHoles const &) = 0;
-    virtual void Render(Renderer *pRenderer, mat33 const &T_World_View) = 0;
-
+    
     virtual void MouseDown(MouseInput, vec2 const &) {};
     virtual void MouseUp(MouseInput) {};
     virtual void MouseMove(vec2 const &) {};
 
-    void DoFrame(UIContext *);
+    void DoFrame(UIContext *, IScene *);
 
     bool HasFocus() const { return m_hasFocus; }
     bool IsOpen() const { return m_show; }
 
   protected:
 
-    virtual void _DoFrame(UIContext *) = 0;
+    virtual void _DoFrame(UIContext *, IScene *pScene) = 0;
     virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
 
     UIFlags m_windowFlags;

@@ -1,9 +1,7 @@
 
-#include "xnRenderer.h"
 #include "xnGeometry.h"
 #include "xnCommon.h"
 #include "xnLogger.h"
-#include "xnRenderer.h"
 
 namespace xn
 {
@@ -31,15 +29,6 @@ namespace xn
     mTranslation.Translation(translation);
 
     return mScale * mRotation * mTranslation;
-  }
-
-  void PolygonLoop::Render(Renderer *pRenderer, Draw::Stroke const &stroke) const
-  {
-    if (Size() < 2)
-      return;
-
-    for (auto it = cEdgesBegin(); it != cEdgesEnd(); it++)
-      pRenderer->DrawLine(*it, stroke);
   }
 
   PolygonLoop PolygonLoop::GetTransformed(mat33 const &t) const
@@ -73,12 +62,6 @@ namespace xn
   epilogue:
 
     return result;
-  }
-
-  void PolygonWithHoles::Render(Renderer *pRenderer, Draw::Stroke const &stroke) const
-  {
-    for (auto it = loops.cbegin(); it != loops.cend(); it++)
-      it->Render(pRenderer, stroke);
   }
 
   PolygonWithHoles PolygonWithHoles::GetTransformed(mat33 const &transform) const
