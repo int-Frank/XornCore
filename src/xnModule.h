@@ -28,7 +28,7 @@ namespace xn
 
     void SetLogger(Logger *);
 
-    virtual bool SetGeometry(PolygonWithHoles const &) = 0;
+    virtual bool SetGeometry(std::vector<PolygonLoop> const &) = 0;
     
     virtual void MouseDown(MouseInput, vec2 const &) {};
     virtual void MouseUp(MouseInput) {};

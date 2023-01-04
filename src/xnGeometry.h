@@ -53,12 +53,17 @@ namespace xn
     PolygonWithHoles GetTransformed(mat33 const &) const;
     Dg::ErrorCode GetAABB(aabb *pOut) const;
 
-    // Use to properly sort loops by size.
-    // This ensures the boundary will be the first loop.
-    void Push(PolygonLoop const &);
+    // Use to construct a valid polygon with holes.
+    // This ensures the boundary will be the first loop, and subsequent
+    // loops do not intersect, are contined inside the boundary, and
+    // are correctly wound.
+    bool Add(PolygonLoop const &);
 
     Dg::DoublyLinkedList<PolygonLoop> loops;
   };
+
+  // Helper function to organise the loops into valid polygons with holes.
+  std::vector<PolygonWithHoles> BuildPolygonsWithHoles(std::vector<PolygonLoop> const &);
 }
 
 #endif
