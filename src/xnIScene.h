@@ -17,12 +17,13 @@ namespace xn
 
     virtual ~IScene() {}
 
-    virtual void AddLine(xn::seg const &, float thickness, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
-    virtual void AddLineGroup(std::vector<xn::seg> const &, float thickness, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
-    virtual void AddFilledCircle(xn::vec2 const &centre, float radius, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
-    virtual void AddFilledCircleGroup(std::vector<xn::vec2> const &centres, float radius, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
-    virtual void AddPolygon(xn::DgPolygon const &, float thickness, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
-    virtual void AddFilledPolygon(xn::DgPolygon const &, xn::Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddLine(seg const &, float thickness, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddLineGroup(std::vector<seg> const &, float thickness, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddFilledCircle(vec2 const &centre, float radius, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddFilledCircleGroup(std::vector<vec2> const &centres, float radius, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddPolygon(DgPolygon const &, float thickness, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddFilledPolygon(DgPolygon const &, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
+    virtual void AddFilledPolygon(PolygonWithHoles const &, Colour clr, uint32_t flags, uint32_t layer = 0) = 0;
   };
 }
 

@@ -17,6 +17,7 @@ namespace xn
 {
   typedef Dg::Vector2<float> vec2;
   typedef Dg::Vector3<float> vec3;
+  typedef Dg::Vector4<float> vec4;
   typedef Dg::Segment2<float> seg;
   typedef Dg::Matrix33<float> mat33;
   typedef Dg::AABB<float, 2> aabb;
