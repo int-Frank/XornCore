@@ -12,6 +12,11 @@ namespace xn
     Colour() { rgba32 = 0; }
     Colour(uint32_t uint) { rgba32 = uint; }
 
+    float r() const { return (float)rgba.r / 255.f; }
+    float g() const { return (float)rgba.g / 255.f; }
+    float b() const { return (float)rgba.b / 255.f; }
+    float a() const { return (float)rgba.a / 255.f; }
+
     union
     {
       uint32_t rgba32;
