@@ -11,13 +11,13 @@
 
 // Helpers for module loggin
 #define M_LOG_DEBUG(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogDebug(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
-#define M_LOG_INFO(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogInfo(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
-#define M_LOG_WARNING(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogWarning(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
+#define M_LOG_INFO(...)    do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogInfo(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
+#define M_LOG_WARNING(...) do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogWarning(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
 #define M_LOG_ERROR(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogError(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
 
 namespace xn
 {
-  class IScene;
+  class IRenderer;
 
   class Module
   {
@@ -30,18 +30,19 @@ namespace xn
 
     virtual bool SetGeometry(std::vector<PolygonLoop> const &) = 0;
     
-    virtual void MouseDown(MouseInput, vec2 const &) {};
-    virtual void MouseUp(MouseInput) {};
-    virtual void MouseMove(vec2 const &) {};
+    virtual void MouseDown(uint32_t modState, vec2 const &) {};
+    virtual void MouseUp(uint32_t modState) {};
+    virtual void MouseMove(uint32_t modState, vec2 const &) {};
 
-    void DoFrame(UIContext *, IScene *);
+    void DoFrame(UIContext *);
+    virtual void Render(IRenderer *) {}
 
     bool HasFocus() const { return m_hasFocus; }
     bool IsOpen() const { return m_show; }
 
   protected:
 
-    virtual void _DoFrame(UIContext *, IScene *pScene) = 0;
+    virtual void _DoFrame(UIContext *) = 0;
     virtual void NewFrame(); // Optional frame setup, eg to set window flags, window size etc...
 
     UIFlags m_windowFlags;

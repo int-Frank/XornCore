@@ -30,11 +30,11 @@ namespace xn
     m_pLogger = pLogger;
   }
 
-  void Module::DoFrame(UIContext *pContext, IScene *pScene)
+  void Module::DoFrame(UIContext *pContext)
   {
     NewFrame();
     m_hasFocus = pContext->BeginWindow(m_name.c_str(), &m_show, &m_windowFlags);
-    _DoFrame(pContext, pScene);
+    _DoFrame(pContext);
     pContext->EndWindow();
   }
 

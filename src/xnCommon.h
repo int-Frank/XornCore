@@ -9,12 +9,11 @@
 
 namespace xn
 {
-  enum class MouseInput
+  enum ModKey
   {
-    LeftButton,
-    RightButton,
-    MiddleButton,
-    COUNT
+    MK_shift  = 1 << 0,
+    MK_ctrl   = 1 << 1,
+    MK_alt    = 1 << 2
   };
 
   int asprintf(char **ppBuf, char const *fmt, ...);
