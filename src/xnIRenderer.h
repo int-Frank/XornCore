@@ -28,7 +28,7 @@ namespace xn
     virtual void DrawFilledPolygon(DgPolygon const &, Colour clr, uint32_t flags) = 0;
     virtual void DrawFilledPolygon(PolygonWithHoles const &, Colour clr, uint32_t flags) = 0;
     virtual void DrawFilledPolygon(std::vector<vec2> const &vertices, std::vector<int> const &polygonSizes, Colour clr, uint32_t flags) = 0;
-
+    virtual void DrawFilledConvexPolygon(std::vector<vec2> const &vertices, Colour clr, uint32_t flags) = 0;
   };
 }
 
