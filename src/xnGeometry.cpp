@@ -8,32 +8,6 @@
 
 namespace xn
 {
-  Transform::Transform()
-    : translation(0.f, 0.f)
-    , rotation(0.f)
-    , scale(1.f, 1.0f)
-  {
-    Reset();
-  }
-
-  void Transform::Reset()
-  {
-    translation = vec2(0.f, 0.f);
-    rotation = 0.f;
-    scale = vec2(1.f, 1.f);
-  }
-
-  mat33 Transform::ToMatrix33() const
-  {
-    mat33 mScale, mRotation, mTranslation;
-
-    mScale.Scaling(scale);
-    mRotation.Rotation(rotation);
-    mTranslation.Translation(translation);
-
-    return mScale * mRotation * mTranslation;
-  }
-
   PolygonLoop PolygonLoop::GetTransformed(mat33 const &t) const
   {
     PolygonLoop result;

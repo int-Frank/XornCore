@@ -23,20 +23,6 @@ namespace xn
   typedef Dg::AABB<float, 2> aabb;
   typedef Dg::Polygon2<float> DgPolygon;
 
-  class Transform
-  {
-  public:
-
-    Transform();
-
-    void Reset();
-    mat33 ToMatrix33() const;
-
-    vec2 translation;
-    float rotation;
-    vec2 scale;
-  };
-
   class PolygonLoop : public DgPolygon
   {
   public:
