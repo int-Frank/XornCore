@@ -39,6 +39,7 @@ namespace xn
     virtual bool Button(const char *label, const Dg::Vector2<float> &size_arg = Dg::Vector2<float>(0.f, 0.f)) = 0;
     virtual void Text(const char *fmt, ...) = 0;
     virtual bool Checkbox(char const *pLabel, bool *pVal) = 0;
+    virtual bool InputText(const char *label, char *buf, size_t buf_size) = 0;
 
     virtual bool SliderFloat(const char *label, float *v, float v_min, float v_max, const char *format = "%.3f", UIFlags const *pFlags = nullptr) = 0;
     virtual bool SliderInt(const char *label, int *v, int v_min, int v_max, const char *format = "%d", UIFlags const *pFlags = nullptr) = 0;
