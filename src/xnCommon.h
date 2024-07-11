@@ -15,6 +15,10 @@
 #define M_LOG_WARNING(...) do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogWarning(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
 #define M_LOG_ERROR(...)   do{if (m_pLogger != nullptr) {char *__LOGMSGBUF = nullptr; ::xn::asprintf(&__LOGMSGBUF, __VA_ARGS__); m_pLogger->LogError(__LOGMSGBUF); delete[] __LOGMSGBUF;}} while(false)
 
+#define HAS_MOD_SHIFT(x) ((x & xn::MK_shift) != 0)
+#define HAS_MOD_CTRL(x) ((x & xn::MK_ctrl) != 0)
+#define HAS_MOD_ALT(x) ((x & xn::MK_alt) != 0)
+
 namespace xn
 {
   enum ModKey
